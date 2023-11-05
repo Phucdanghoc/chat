@@ -1,0 +1,17 @@
+/* Container styling */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+/* Chat room list styling */
+.chat-room-list {
+    list-style: none;
+    padding: 0;
+}
+.chat-room-list-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
