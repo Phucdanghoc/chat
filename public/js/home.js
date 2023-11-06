@@ -12,14 +12,19 @@ $(document).ready(function () {
             console.error('Lỗi khi lấy danh sách phòng chat:', error);
         }
     });
+    
 });
 
 function populateChatRooms(chatRooms) {
-    const chatRoomList = $('.chat-room-list');
+    const chatRoomList = $('#chat-room-list');
     console.log(chatRooms.data);
     chatRooms.data.forEach(room => {
-        const listItem = $('<li>').addClass('chat-room-list-item');
-        listItem.text(room.name);
+        const listItem = $('<li>').addClass('list-group-item');
+        const link = $('<a>')
+            .attr('href', `/join/${room._id}`)
+            .addClass('text-decoration-none text-dark')
+            .text(room.name);
+        listItem.append(link);
         chatRoomList.append(listItem);
     });
 }

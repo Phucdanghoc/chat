@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const route = require("./routers");
 const db = require('./config/index');
+const User = require("./models/User");
 const app = express();
 const server = http.createServer(app); // Create an HTTP server using Express
 const io = socketIO(server); // Attach Socket.io to the HTTP server
@@ -44,25 +45,33 @@ app.use(cookieParser());
 route(app);
 
 
-// Define a connection event handler for Socket.io
+
+
+const users = {};
+
 io.on('connection', (socket) => {
-  console.log('A user connected');
+  console.log(`User connected with socket ID: ${socket.id}`);
 
-  // Define a message event handler
-  socket.on('message', (msg) => {
-    console.log('Received message:', msg);
-
-    // Broadcast the message to all connected clients
-    io.emit('message', msg);
+  // Xử lý các sự kiện Socket.io ở đây
+  // Ví dụ: nhận và gửi tin nhắn trong phòng chat
+  socket.on('joinRoom', (roomName) => {
+    socket.join(roomName);
   });
 
-  // Define a disconnect event handler
+  socket.on('chatMessage', (data) => {
+    // Lưu tin nhắn vào cơ sở dữ liệu
+    console.log(data);
+
+    // Gửi tin nhắn đến tất cả người dùng trong phòng chat
+    io.to(data.roomId).emit('messageReceived', data.message);
+  });
+
   socket.on('disconnect', () => {
-    console.log('A user disconnected');
+    console.log(`User disconnected with socket ID: ${socket.id}`);
   });
 });
 
-
+module.exports = io;
 
 
 server.listen(PORT, () => {

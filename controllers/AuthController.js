@@ -29,7 +29,6 @@ class AuthController{
     }
     async register(req,res){
         const { username, password } = req.body;
-        console.log(username);
         if (!username && !password) {
             res.status(400).json({ error: 'Missing required fields' }); 
 
@@ -43,6 +42,16 @@ class AuthController{
         else{
             res.status(400).json({error: "Register Fail !"});
         }
+    }
+    async logout(req,res){
+        req.session.destroy((err) => {
+            if (err) {
+              console.error('Error destroying session:', err);
+              return res.status(500).send('Internal Server Error');
+            }
+            res.redirect('./login');
+          });
+        
     }
     
 }

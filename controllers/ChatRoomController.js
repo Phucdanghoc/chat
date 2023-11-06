@@ -2,7 +2,8 @@ const ChatRoom = require("../models/ChatRoom");
 
 class ChatRoomController{
     index(req,res){
-        res.render('chatroom');
+        console.log(req.params);
+        res.render('chatroom',{user : req.session.user});
     }
     async getAll(req,res){
         if (!req.session.user) {
@@ -12,6 +13,7 @@ class ChatRoomController{
         const chatRooms = await ChatRoom.find({ members: user._id });
         res.status(200).json({data: chatRooms});
     }
+    
 }
 
 module.exports = new ChatRoomController();
