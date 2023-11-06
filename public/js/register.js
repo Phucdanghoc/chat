@@ -17,6 +17,7 @@ $(document).ready(function () {
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
                     $("#registrationMessage").text("Đăng ký thành công!");
+                    window.location.href = '/';
                 },
                 error: function (error) {
                     $("#registrationMessage").text(error.error);

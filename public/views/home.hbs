@@ -8,14 +8,29 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Include custom CSS for styling -->
     <link rel="stylesheet" href="../css/home.css">
-    
 </head>
 <body>
-    <div class="container">
-        <h1>Chat Rooms</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Chat Homepage</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="auth/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Chat Rooms</h1>
         <!-- List of chat rooms -->
-        <ul class="chat-room-list">
-            <!-- Add more chat rooms here -->
+        <ul class="list-group" id="chat-room-list">
+           
         </ul>
     </div>
 
@@ -25,6 +40,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Custom JavaScript for handling room selection -->
-    <script src="../js/home.js" ></script>
+    <script src="../js/home.js"></script>
 </body>
 </html>

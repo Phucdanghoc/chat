@@ -6,8 +6,9 @@ const middleware = require('../middleware/middleware');
 
 function route(app) {
   app.use('/auth',loginRouter);
-  app.use('/',middleware.auth,homeRouter);
-  app.use('/api/',middleware.auth,apiRouter)
+  app.use('/',middleware.auth,homeRouter );
+  app.use('/api/',middleware.auth,apiRouter);
+  
   // ...
 }
 

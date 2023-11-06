@@ -14,8 +14,9 @@ $(document).ready(function () {
                 type: "POST",
                 data: JSON.stringify({ username, password }),
                 contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    $("#registrationMessage").text("Đăng nhập thành công!");
+                success: function (respone) {
+                    console.log(respone);
+                    window.location.href = '/';
                 },
                 error: function (error) {
                     $("#registrationMessage").text(error.error);

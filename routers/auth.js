@@ -9,7 +9,7 @@ router.post('/login',AuthController.login);
 router.get('/register',AuthController.registerIndex);
 router.post('/register',AuthController.register);
 
-
+router.get('/logout',AuthController.logout);
 
 //test
 router.get('/test',Test.index);
