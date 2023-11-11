@@ -1,7 +1,7 @@
 class Middleware{
     auth(req,res,next){
         try {
-            if (req.session.user) {
+            if (req.isAuthenticated()) {
                 next()
             }else{
                 res.redirect('/auth/login');

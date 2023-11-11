@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Chat</title>
     <link rel="stylesheet" href="../css/chatroom.css">
 </head>
+
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <h1 data-id="{{user._id}}">{{user.username}}</h1>
+            <h1 data-id="{{_id}}">{{username}}</h1>
         </div>
-        <div class="chat-messages" id="chat-messages">
-            <!-- Tin nhắn sẽ được thêm vào đây -->
-        </div>
-        <div class="chat-input">
-            <input type="text" id="message-input" placeholder="Type your message...">
-            <button id="send-button">Send</button>
-        </div>
+        <ul class="pages">
+            <li class="chat page">
+                <div class="chatArea">
+                    <ul class="messages"></ul>
+                </div>
+                <input class="inputMessage" placeholder="Type here..." />
+            </li>
+           
+        </ul>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../js/chatroom.js"></script>
     <script src="/socket.io/socket.io.js"></script>
 </body>
+
 </html>

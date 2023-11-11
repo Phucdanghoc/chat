@@ -1,78 +1,77 @@
-const path = require("path");
 const express = require('express');
-const http = require('http'); // We'll use the HTTP server module
-const socketIO = require('socket.io'); // Require Socket.io
-const handlebars = require('express-handlebars');
-require('dotenv').config();
-const {PORT,KEY_SESSION} = process.env;
-const cookieParser = require('cookie-parser');
+const http = require('http');
+const socketIO = require('socket.io');
+const path = require('path');
 const session = require('express-session');
-const route = require("./routers");
-const db = require('./config/index');
-const User = require("./models/User");
+const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
+const passport = require('passport');
+const handlebars = require('express-handlebars');
+const db = require('./config');
+const route = require('./routers/index');
+const SocketService = require('./services/SocketService');
+
+require('dotenv').config();
+
+const { PORT, KEY_SESSION } = process.env;
+
 const app = express();
-const server = http.createServer(app); // Create an HTTP server using Express
-const io = socketIO(server); // Attach Socket.io to the HTTP server
+const server = http.createServer(app);
+const io = socketIO(server);
+global._io = io;
 
-
-db.connect()
-app.use(express.static(path.join(__dirname, "public")));
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
-app.use(session({
+db.connect();
+const sessionMiddleware = session({
   saveUninitialized: true,
-  secret : KEY_SESSION,
+  secret: KEY_SESSION,
   resave: false,
-  cookie : {
-    maxAge : 1000*200
-  },
-}))
+  cookie: {
+    maxAge: 1000 * 200
+  }
+});
+app.use(sessionMiddleware);
+app.use(passport.initialize());
+app.use(passport.session());
+require('./auth/passport')(passport);
 
 app.engine(
-  "hbs",
+  'hbs',
   handlebars.engine({
-    extname: ".hbs",
-    defaultLayout: false,
+    extname: '.hbs',
+    defaultLayout: false
   })
 );
-app.set("view engine", "hbs");
-app.set("views", path.join(__dirname, "public/views"));
+
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'public/views'));
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-route(app);
+app.use(flash());
 
-
-
-
-const users = {};
-
-io.on('connection', (socket) => {
-  console.log(`User connected with socket ID: ${socket.id}`);
-
-  // Xử lý các sự kiện Socket.io ở đây
-  // Ví dụ: nhận và gửi tin nhắn trong phòng chat
-  socket.on('joinRoom', (roomName) => {
-    socket.join(roomName);
-  });
-
-  socket.on('chatMessage', (data) => {
-    // Lưu tin nhắn vào cơ sở dữ liệu
-    console.log(data);
-
-    // Gửi tin nhắn đến tất cả người dùng trong phòng chat
-    io.to(data.roomId).emit('messageReceived', data.message);
-  });
-
-  socket.on('disconnect', () => {
-    console.log(`User disconnected with socket ID: ${socket.id}`);
-  });
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  next();
 });
 
-module.exports = io;
+route(app);
+const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 
+io.use(wrap(sessionMiddleware));
+io.use(wrap(passport.initialize()));
+io.use(wrap(passport.session()));
+
+io.use((socket, next) => {
+  if (socket.request.user) {
+    next();
+  } else {
+    next(new Error('unauthorized'))
+  }
+});
+io.on('connection',SocketService.connection);
 
 server.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT}`);

@@ -1,10 +1,11 @@
 
 $(document).ready(function () {
 
+
     $.ajax({
         url: "/api/chatroom",
         type: 'GET',
-        dataType: 'json', 
+        dataType: 'json',
         success: function (data) {
             populateChatRooms(data);
         },
@@ -12,7 +13,11 @@ $(document).ready(function () {
             console.error('Lỗi khi lấy danh sách phòng chat:', error);
         }
     });
-    
+
+    setTimeout(function () {
+        $('#success-msg, #error-msg').fadeOut('slow');
+    }, 5000);
+
 });
 
 function populateChatRooms(chatRooms) {

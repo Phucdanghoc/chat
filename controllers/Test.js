@@ -1,6 +1,6 @@
 const ChatRoom = require("../models/ChatRoom")
 const User = require("../models/User")
-const Service = require("../services/Service");
+const Service = require("../services/AuthService");
 
 class Test{
     async index(req,res){
