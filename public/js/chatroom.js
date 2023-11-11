@@ -1,44 +1,50 @@
 $(document).ready(function () {
-    const messageInput = $("#message-input");
-    const sendButton = $("#send-button");
-    const chatMessages = $("#chat-messages");
-    const userId = $("h1").attr("data-id");
-
-    // Create a Socket.io connection
     const socket = io();
+    const $messages = $('.messages');
+    const $inputMessage = $('.inputMessage');
+    const url = window.location.href;
+    const parts = url.split('/');
 
-    // Đăng nhập với tên người dùng
-    const username = 'User1'; // Thay bằng tên người dùng của bạn
-    socket.emit('setUsername', username);
+    const roomId = parts[parts.length - 1]; // Assuming the ID is at the end of the URL
+    socket.on('connect', () => {
+        socket.emit('sendID', roomId); // Replace 'sendID' with your desired event name
+    });
+    // Function to add a message to the chat
+    function addMessage(message) {
+        const $messageDiv = $('<li class="message"/>').text(message);
+        $messages.append($messageDiv);
+    }
 
-    // Tham gia phòng chat
-    const currentURL = window.location.href;
+    // Handle sending a new message
+    function sendMessage() {
+        const message = $inputMessage.val();
+        if (message.trim() !== '') {
+            socket.emit('new message', {message,roomId});
+            addMessage(`You: ${message}`);
+            $inputMessage.val('');
+        }
+    }
 
-    // Tìm vị trí của "join/" trong URL
-    const joinIndex = currentURL.indexOf("/join/");
-
-    const roomId = currentURL.substring(joinIndex + 6); // +6 để bỏ qua "join/"
-    console.log("roomId:", roomId);
-
-    socket.emit('joinRoom', roomId);
-
-    // Handle Socket.io messages received from the server
-    socket.on('messageReceived', (message) => {
-        const messageElement = $("<div>").addClass("message").text(message);
-        chatMessages.append(messageElement);
+    // Listen for new messages from the server
+    socket.on('new message', (message) => {
+        addMessage(message);
     });
 
-    // Handle Socket.io connection close
-    socket.on("disconnect", () => {
-        console.log("Socket.io connection closed");
+    // Handle form submission to send a message
+    $('form').submit(function () {
+        sendMessage();
+        return false; // Prevent the page from refreshing
     });
 
-    sendButton.on("click", function () {
-        let message = messageInput.val().trim();
-        if (message !== "") {
-            // Send the message to the Socket.io server
-            socket.emit("chatMessage", { roomId, message,userId });
-            messageInput.val("");
+    // Handle Enter key press to send a message
+    $inputMessage.keydown(function (event) {
+        if (event.which === 13) {
+            sendMessage();
         }
     });
+
+    // lấy sự kiện từ server ./services/SocketService.js
+    // bắt sự kiện từ đó rồi xử lí ở đây để hiện thị tin nhắn,
+    //gửi tin nhắn về server, người dùng online
+    // 
 });

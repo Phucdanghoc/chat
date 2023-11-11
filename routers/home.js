@@ -5,8 +5,7 @@ const ChatRoomController =  require('../controllers/ChatRoomController');
 
 
 router.get('',HomeController.index);
-router.get('/join/:id',ChatRoomController.index);
-
+router.get('/join/:id', ChatRoomController.index);
 
 
 

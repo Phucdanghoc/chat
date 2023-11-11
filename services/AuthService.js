@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-class Service{
+class AuthService{
 
     async hashPassword(plainPassword) {
         try {
@@ -21,4 +21,4 @@ class Service{
     
 }
 
-module.exports = new Service();
+module.exports = new AuthService();
