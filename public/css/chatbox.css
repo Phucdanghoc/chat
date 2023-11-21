@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .chat-container {
+    width: 80%;
+    margin: 20px auto;
+    border-radius: 5px;
+    overflow: hidden;
+
+  }
+  .chat-messages {
+    
+    height: 75vh;
+    overflow-y: scroll;
+    padding: 10px;
+  }
+  /* For Microsoft Edge */
+.chat-messages {
+    height: 75vh; /* Example height */
+    overflow-y: auto; /* Enable vertical scrollbar */
+    padding: 10px;
+    scrollbar-width: thin; /* Width of the scrollbar */
+  }
+  
+  .message {
+    color: #ebe6e6;
+    margin-bottom: 5px;
+  }
+
+  .message span {
+    font-weight: bold;
+    color: rgb(109, 175, 232);
+  }
+
+  .message p {
+    margin-left: 20px;
+  }
+
+  .input-box {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: darkslategrey;
+  }
+
+  .input-box input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+  }
+
+  .input-box button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #330c0c;
+    cursor: pointer;
+  }
+
+  .input-box button:hover {
+    background-color: #0056b3;
+  }

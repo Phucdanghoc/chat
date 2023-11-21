@@ -12,7 +12,7 @@ class ChatRoomController {
             console.log(error);
             res.render('404');
         }
-        res.render('chatroom', { _id: req.user._id, username: req.user.username });
+        res.render('chatroom1', { _id: req.user._id, username: req.user.username });
     }
     async getAll(req, res) {
         if (!req.isAuthenticated()) {

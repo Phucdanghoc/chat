@@ -1,0 +1,33 @@
+body{
+  background-color:darkslategrey;
+}
+h3{
+  text-align: center;
+  color: aliceblue;
+}
+.modal-header{
+  text-align: center;
+  background-color: rgb(47, 49, 49);
+}
+.status-text {
+  font-size: 12px;
+  color: green; /* Change the color as desired */
+  margin-left: 5px; /* Adjust spacing */
+}
+.user-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+h4{
+  color: rgb(192, 25, 25);
+}
+.small-link {
+  color: rgb(129, 129, 175);
+  font-size: 0.6em;
+  display: block;
+  margin-top: 0rem;
+}
