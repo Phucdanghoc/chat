@@ -26,7 +26,7 @@ const sessionMiddleware = session({
   secret: KEY_SESSION,
   resave: false,
   cookie: {
-    maxAge: 1000 * 200
+    maxAge: 1000 * 200000
   }
 });
 app.use(sessionMiddleware);

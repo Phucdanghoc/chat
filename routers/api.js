@@ -1,10 +1,10 @@
 const express = require('express');
-const ChatroomController = require('../controllers/ChatroomController');
+const ChatRoomController = require('../controllers/ChatRoomController');
 const router = express.Router();
 
 
 // roomChat
-router.get('/chatroom',ChatroomController.getAll);
-router.get('/chatroom/:id',ChatroomController.getAll);
+router.get('/chatroom',ChatRoomController.getAll);
+router.get('/chatroom/:id',ChatRoomController.getMessageByChatRoom);
 
 module.exports = router;

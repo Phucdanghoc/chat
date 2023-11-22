@@ -1,4 +1,5 @@
 const ChatRoom = require("../models/ChatRoom");
+const Message = require("../models/Message");
 class ChatRoomController {
 
     async index(req, res) {
@@ -14,7 +15,7 @@ class ChatRoomController {
         }
         res.render('chatroom1', { _id: req.user._id, username: req.user.username });
     }
-    async getAll(req, res) {
+    async getAll(req, res) {    
         if (!req.isAuthenticated()) {
             res.status(400).json({ error: 'Login ?' });
         }
@@ -22,8 +23,13 @@ class ChatRoomController {
         const chatRooms = await ChatRoom.find({ members: user._id });
         res.status(200).json({ data: chatRooms });
     }
+    async getMessageByChatRoom(req,res){
+        const roomId = req.params.id;
+        const messages = await Message.find({ roomId: roomId }).sort({ timestamp: 1 }).exec();
+        res.status(200).json({messages});
+    }
 
-
+    
 }
 
 module.exports = new ChatRoomController();
