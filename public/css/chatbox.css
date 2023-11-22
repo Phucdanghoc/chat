@@ -66,3 +66,46 @@ body {
   .input-box button:hover {
     background-color: #0056b3;
   }
+  .chat-history {
+    height: 500px; /* Adjust the height as needed */
+    overflow-y: auto;
+    /* Other styling as needed */
+}
+
+.centered-line {
+  text-align: center; /* Center the text horizontally */
+  border-top: 1px solid #ccc; /* Add a line (adjust color and style as needed) */
+}
+
+p {
+  display: inline-block; /* Make the text inline so it's centered horizontally */
+  margin: 0; /* Remove default margin for the paragraph */
+  padding: 10px; /* Add padding for spacing around the text */
+}
+#typing-text {
+  text-align: center;
+  font-size: 24px;
+  font-family: Arial, sans-serif;
+  margin-top: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 3s steps(30) forwards, blink 0.7s infinite;
+}
+
+@keyframes typing {
+  0% {
+      width: 0;
+  }
+  100% {
+      width: 100%;
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+      opacity: 1;
+  }
+  50% {
+      opacity: 0;
+  }
+}
