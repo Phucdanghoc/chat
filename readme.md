@@ -16,15 +16,14 @@
 
 **Bước 1: Cài đặt mã nguồn**
 
-- Mã nguồn từ kho lưu trữ GitHub:
----git clone https://github.com/your-username/your-project.git
+- Mã nguồn từ kho lưu trữ GitHub: ```git clone https://github.com/your-username/your-project.git```
 
 **Bước 2: Chạy ứng dụng**
 
 - Khi đã cài đặt các dự án đã yêu cầu , chạy lệnh  ```npm install``` để cài đặt các node_module.
 - Sau đó chạy lệnh ```npm start ``` để khởi động ứng dụng.
-- Ứng dụng sẽ khởi chạy trên [http://localhost:3000].
-- Truy cập [http://localhost:3000/auth/test] để có thể tạo dữ liệu mẫu vào Database.
+- Ứng dụng sẽ khởi chạy trên [http://localhost:3000](http://localhost:3000).
+- Truy cập [http://localhost:3000/auth/test](http://localhost:3000/auth/test) để có thể tạo dữ liệu mẫu vào Database.
 - Sau đó đăng nhập bằng các tài khoản được cung cấp sau : 
 
  -- Username : user1
