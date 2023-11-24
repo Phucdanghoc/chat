@@ -2,7 +2,6 @@ const User = require("../models/User");
 const Message = require("../models/Message");
 const ChatRoom = require("../models/ChatRoom");
 
-const connectedUsers = new Map(); // Map to store connected users and their online status
  
 
 class SocketService {
@@ -12,10 +11,7 @@ class SocketService {
         const user = await User.findById(userId);
 
         socket.username = user.username;
-        socket.on('sendID', (id) => {
-            console.log('Received ID:', id);
-            connectedUsers.set(userId,true);
-
+        socket.on('user join', () => {
             socket.broadcast.emit("user join")
         });
 
@@ -41,7 +37,6 @@ class SocketService {
         });
 
         socket.on('disconnect', () => {
-            connectedUsers.set(userId, false);
             socket.broadcast.emit('user left', {
                 username: socket.username,
                 numUsers: numUsers

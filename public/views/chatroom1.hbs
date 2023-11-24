@@ -12,16 +12,7 @@
 </head>
 
 <body>
-    {{#if success_msg}}
-    <div class="alert alert-success">{{success_msg}}</div>
-    {{/if}}
-    {{#if error_msg}}
-    <div class="alert alert-danger">{{error_msg}}</div>
-    {{/if}}
-    <div class="modal-header border-0 text-center">
-        <h3 class="modal-title w-100 text-center">Current Room</h3>
-        <p hidden>{{_id}}</p>
-    </div>
+
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <div class="container">
         <div class="row clearfix">
@@ -65,14 +56,9 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6 hidden-sm text-right">
-                                    <a href="javascript:void(0);" class="btn btn-outline-secondary"><i
-                                            class="fa fa-camera"></i></a>
-                                    <a href="javascript:void(0);" class="btn btn-outline-primary"><i
-                                            class="fa fa-image"></i></a>
-                                    <a href="javascript:void(0);" class="btn btn-outline-info"><i
-                                            class="fa fa-cogs"></i></a>
-                                    <a href="javascript:void(0);" class="btn btn-outline-warning"><i
-                                            class="fa fa-question"></i></a>
+                                    <a class="btn btn-danger" href="/auth/logout" role="button">Logout</a>
+
+
                                 </div>
                             </div>
                         </div>

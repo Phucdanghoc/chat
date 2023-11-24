@@ -2,9 +2,6 @@ const User = require('../models/User');
 const Service = require('../services/AuthService');
 
 const LocalStrategy = require('passport-local').Strategy;
-
-
-
 module.exports = function (passport) {
     passport.use(new LocalStrategy(async (username, password, done) => {
         try {

@@ -6,8 +6,6 @@ const Test = require('../controllers/Test');
 router.get('/login',AuthController.loginIndex);
 router.post('/login',AuthController.login);
 
-router.get('/register',AuthController.registerIndex);
-router.post('/register',AuthController.register);
 
 router.get('/logout',AuthController.logout);
 

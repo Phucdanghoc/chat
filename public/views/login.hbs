@@ -9,12 +9,7 @@
 </head>
 
 <body>
-    {{#if success_msg}}
-    <div class="alert alert-success">{{success_msg}}</div>
-    {{/if}}
-    {{#if error_msg}}
-    <div class="alert alert-danger">{{error_msg}}</div>
-    {{/if}}
+
     <form id="registrationForm">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
@@ -24,8 +19,14 @@
 
         <input type="submit" value="Login">
         <a href="./register">Register</a>
+        {{#if success_msg}}
+        <div class="alert alert-success">{{success_msg}}</div>
+        {{/if}}
+        {{#if error_msg}}
+        <div class="alert alert-danger">{{error_msg}}</div>
+        {{/if}}
     </form>
-    
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../js/login.js"></script>
 </body>
