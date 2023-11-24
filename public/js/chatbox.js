@@ -1,5 +1,6 @@
 $(document).ready(function () {
   const socket = io();
+  socket.emit('user join');
   const pathArray = window.location.pathname.split('/');
   const ROOMID = pathArray[pathArray.length - 1];
   const USERID = $('.modal-header p').text();
@@ -12,11 +13,9 @@ $(document).ready(function () {
     dataType: 'json',
     success: function (data) {
       // Loop through the user data and populate the chat list
-      const fisrtRoom = data.data[0]
-      showRoomChat(fisrtRoom)
       const chatList = $('#chat-list');
       data.data.forEach(function (room) {
-        const listItem = $('<li class="clearfix"></li>');
+        const listItem = $(`<a href="/join/${room._id}"><li class="clearfix" ></li></a>`);
         listItem.append(`<img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">`);
         const aboutDiv = $('<div class="about"></div>');
         aboutDiv.append(`<div class="name" data-id="${room._id}">${room.name}</div>`);
@@ -35,19 +34,19 @@ $(document).ready(function () {
       statusElement.text("Offline").css("color", "red");
     }
   }
+
   socket.on('user join',() =>{
     updateStatus(true);
+    socket.emit('user join');
+
   })
   
   socket.on('user left',() =>{
     updateStatus(false);
+    
   })
 
-  function showRoomChat() {
-    socket.on('connect', () => {
-      socket.emit('sendID', ROOMID);
-    });
-  }
+
 
   $.ajax({
     url: `/api/v1/chatroom/${ROOMID}`, // Replace with your API endpoint
@@ -173,14 +172,13 @@ $(document).ready(function () {
   }
 
   // Add event listener to your input field to detect typing
-  $('#input-message').on('input', function () {
+  $('#input-message').on('input focus', function () {
     if ($(this).val().trim() !== '') {
-      socket.emit('typing')
+      socket.emit('typing');
     } else {
-      socket.emit('stop typing')
+      socket.emit('stop typing');
     }
   });
-
 });
 
 
