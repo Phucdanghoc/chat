@@ -16,7 +16,7 @@
 
 **Bước 1: Cài đặt mã nguồn**
 
-- Mã nguồn từ kho lưu trữ GitHub: ```git clone https://github.com/your-username/your-project.git```
+- Mã nguồn từ kho lưu trữ GitHub: ```git clone https://github.com/Phucdanghoc/chat.git```
 
 **Bước 2: Chạy ứng dụng**
 
